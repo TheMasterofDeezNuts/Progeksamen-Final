@@ -1,0 +1,102 @@
+@page "/"
+
+
+<title>Hjemmesidens titel</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #3e7acf;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 100%;
+        background-color: #FFFFF;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+
+
+<header>
+    <h2>Forside</h2>
+</header>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            font-size: 17px;
+        }
+
+        .container {
+            position: fixed;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+            .container img {
+                vertical-align: middel;
+                margin-left: left;
+            }
+
+            .container .content {
+                position: absolute;
+                bottom: 0;
+                background: rgb(0, 0, 0); /* Fallback color */
+                background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+                color: #f1f1f1;
+                width: 195.25%;
+                padding: 40px;
+            }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <img src="https://www.svommebad.dk/image/cache/catalog/ERFA-dage/Herning%20Sv%C3%B8mmehal/Herning_hal-cropresize-1000x750.jpg" alt="Herning Svommehal" style="width:199.25%;height:600px;">
+        <div class="content">
+            <h1>Herning Svømmehal</h1>
+            <p>Svømmehallen i Herning har siden 1971 leveret svømmefaciliteter til børnefamilien og svømmeinteressede.</p>
+        </div>
+    </div>
+
+</body>

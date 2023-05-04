@@ -1,0 +1,118 @@
+﻿@page "/Skema"
+
+
+<title>Hjemmesidens titel</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #3e7acf;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 100%;
+        background-color: #FFFFF;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+
+<header>
+	<h2>Skema</h2>
+</header>
+
+
+
+
+@inject HttpClient Http
+
+
+@if (Skema == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Sted</th>
+                <th>Start</th>
+                <th>Slut</th>
+                <th>Beskrivelse</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Event e in Skema.events)
+            {
+                <tr>
+                    <td>@e.summary</td>
+                    <td>@e.location</td>
+                    <td> @e.Start.ToString("HH':'mm':'ss dd'/'MM'/'yyyy") </td>
+                    <td> @e.Slut.ToString("HH':'mm':'ss dd'/'MM'/'yyyy") </td>
+                    <td>@e.description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+
+@using System.Net.Http.Headers;
+@code {
+	public string URL = "https://calendars.p.rapidapi.com/ical_fetch?c=friendOfAFriend&json=true";
+	public Schedule? Skema;
+
+	protected override async Task OnInitializedAsync()
+	{
+		Http.DefaultRequestHeaders.Add("X-RapidAPI-Key", "fdbfbeff8fmsh54671f521b9784ep16b6c6jsn8d5c7acb0589");
+		Http.DefaultRequestHeaders.Add("X-RapidAPI-Host", "calendars.p.rapidapi.com");
+
+		Skema = await Http.GetFromJsonAsync<Schedule>(URL);
+
+		foreach (Event EVENT in Skema.events)
+		{
+			 EVENT.Start = DateTime.ParseExact(EVENT.dtstart, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
+            EVENT.Slut = DateTime.ParseExact(EVENT.dtend, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
+		}
+
+		
+	}
+}
+
+
